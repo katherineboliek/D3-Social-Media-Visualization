@@ -1,25 +1,28 @@
+//set margins
 	var margin = {top: 20, right: 80, bottom: 30, left: 50},
 	    width = 960 - margin.left - margin.right,
 	    height = 500 - margin.top - margin.bottom;
 
+//attach svg to page
 	var svg = d3.select(".container").append("svg")
 			    .attr("width", width + margin.left + margin.right)
 			    .attr("height", height + margin.top + margin.bottom)
 			  .append("g")
 			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+//parsing data
 	var parseDate = d3.time.format("%Y").parse;
 
-	var x = d3.time.scale()
-	    .range([0, width]);
+//setting ranges
+	var x = d3.time.scale().range([0, width]);
+	var y = d3.scale.linear().range([height, 0]);
 
-	var y = d3.scale.linear()
-	    .range([height, 0]);
-
+//
 	var color = d3.scale.ordinal()
   .domain(["All","18-29","30-49","50-64","65+"])
   .range(["#b0d5c3", "#ff8a6d" , "#de6344", "#CE3D33", "#6F020E"]);
 
+//axes defined
 	var xAxis = d3.svg.axis()
 	    .scale(x)
 	    .orient("bottom");
@@ -28,11 +31,13 @@
 	    .scale(y)
 	    .orient("left");
 
+//lines defined
 	var line = d3.svg.line()
-	    .interpolate("basis")
+	    .interpolate("linear")
 	    .x(function(d) { return x(d.year); })
 	    .y(function(d) { return y(d.percentage); });
 
+//pull in data from file
 	d3.tsv("media.txt", function(error, data) {
 	  if (error) throw error;
 
@@ -82,6 +87,28 @@
 	      .attr("class", "line")
 	      .attr("d", function(d) { return line(d.values); })
 	      .style("stroke", function(d) { return color(d.name); });
+
+		age.selectAll(".age")
+    .data(function (d) { return d.values; })
+		.enter().append("circle")
+			.attr("class", "dot")
+	    .attr("r", 5)
+	    .attr("cx", function(d) { return x(d.year); })
+	    .attr("cy", function(d) { return y(d.percentage); })
+			.style("fill", function(d) { return color(d.name); });
+	    // .on("mouseover", function(d) {
+	    //     div.transition()
+	    //         .duration(200)
+	    //         .style("opacity", .9);
+	    //     div	.html(formatTime(d.year) + "<br/>"  + d.percentage)
+	    //         .style("left", (d3.event.pageX) + "px")
+	    //         .style("top", (d3.event.pageY - 28) + "px");
+	    //     })
+	    // .on("mouseout", function(d) {
+	    //     div.transition()
+	    //         .duration(500)
+	    //         .style("opacity", 0);
+	    // });
 
 	  age.append("text")
 	      .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })

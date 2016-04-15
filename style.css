@@ -1,7 +1,14 @@
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 10px;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  color: #090a04;
   background-color: #EFEEDC;
+}
+
+p {
+  font-family: Helvetica;
+  font-size: 17px;
+  color: #090a04;
 }
 
 .container {
@@ -13,16 +20,12 @@ body {
 .axis path,
 .axis line {
   fill: none;
-  stroke: #000;
+  stroke: #090a04;
+  stroke-width: 2px;
   shape-rendering: crispEdges;
-}
-
-.x.axis path {
-  display: none;
 }
 
 .line {
   fill: none;
-  stroke: steelblue;
   stroke-width: 3px;
 }
