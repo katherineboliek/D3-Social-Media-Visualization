@@ -4,6 +4,11 @@
 	    height = 500 - margin.top - margin.bottom;
 
 //attach svg to page
+// Define the div for the tooltip
+	var tool = d3.select(".container").append("div")
+    	.attr("class", "tooltip")
+    	.style("opacity", 0);
+
 	var svg = d3.select(".container").append("svg")
 			    .attr("width", width + margin.left + margin.right)
 			    .attr("height", height + margin.top + margin.bottom)
@@ -17,7 +22,7 @@
 	var x = d3.time.scale().range([0, width]);
 	var y = d3.scale.linear().range([height, 0]);
 
-//
+
 	var color = d3.scale.ordinal()
   .domain(["All","18-29","30-49","50-64","65+"])
   .range(["#b0d5c3", "#ff8a6d" , "#de6344", "#CE3D33", "#6F020E"]);
@@ -95,20 +100,20 @@
 	    .attr("r", 5)
 	    .attr("cx", function(d) { return x(d.year); })
 	    .attr("cy", function(d) { return y(d.percentage); })
-			.style("fill", function(d) { return color(d.name); });
-	    // .on("mouseover", function(d) {
-	    //     div.transition()
-	    //         .duration(200)
-	    //         .style("opacity", .9);
-	    //     div	.html(formatTime(d.year) + "<br/>"  + d.percentage)
-	    //         .style("left", (d3.event.pageX) + "px")
-	    //         .style("top", (d3.event.pageY - 28) + "px");
-	    //     })
-	    // .on("mouseout", function(d) {
-	    //     div.transition()
-	    //         .duration(500)
-	    //         .style("opacity", 0);
-	    // });
+			.style("fill", function(d) { return color(d.name); })
+			.on("mouseover", function(d) {
+	        tool.transition()
+	            .duration(200)
+	            .style("opacity", .9);
+	        tool.html(d.percentage + "%")
+						.style("left", d3.select(this).attr("cx") + "px")
+						.style("top", d3.select(this).attr("cy") + "px");
+	        })
+	    .on("mouseout", function(d) {
+	        tool.transition()
+	            .duration(500)
+	            .style("opacity", 0);
+	    });
 
 	  age.append("text")
 	      .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
