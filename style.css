@@ -1,14 +1,27 @@
 body {
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
   font-size: 13px;
-  color: #090a04;
+  color: #50514F;
   background-color: #EFEEDC;
 }
 
 p {
-  font-family: Helvetica;
   font-size: 17px;
-  color: #090a04;
+  color: #50514F;
+}
+
+.header {
+  padding: 30px 60px 10px 60px;
+  margin: -20px -10px 0 -10px;
+  background-color: #de6344;
+  color: #EFEEDC;
+  font-weight: 700;
+  text-align: center;
+}
+
+.content {
+  margin: 10px 60px 10px 60px;
 }
 
 .container {
@@ -20,7 +33,7 @@ p {
 .axis path,
 .axis line {
   fill: none;
-  stroke: #090a04;
+  stroke: #50514F;
   stroke-width: 2px;
   shape-rendering: crispEdges;
 }
@@ -33,12 +46,21 @@ p {
 div.tooltip {
     position: absolute;
     text-align: center;
-    width: 60px;
-    height: 28px;
-    padding: 2px;
+    padding: 5px;
     font: 12px sans-serif;
-    background: lightsteelblue;
+    background: #b0d5c3;
     border: 0px;
     border-radius: 8px;
     pointer-events: none;
+}
+
+footer {
+  background-color: #de6344;
+  text-align: center;
+  padding: 5px 0 5px 0;
+  margin: 20px -10px -30px -10px;
+}
+
+footer p, footer a {
+  color: #EFEEDC;
 }

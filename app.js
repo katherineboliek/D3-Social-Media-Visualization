@@ -25,7 +25,7 @@
 
 	var color = d3.scale.ordinal()
   .domain(["All","18-29","30-49","50-64","65+"])
-  .range(["#b0d5c3", "#ff8a6d" , "#de6344", "#CE3D33", "#6F020E"]);
+  .range(["#b0d5c3", "#6F020E", "#de6344", "#ff8a6d", "#FFB191"]);
 
 //axes defined
 	var xAxis = d3.svg.axis()
@@ -68,11 +68,13 @@
 	    d3.max(ages, function(c) { return d3.max(c.values, function(v) { return v.percentage; }); })
 	  ]);
 
+//adding x axis
 	  svg.append("g")
 	      .attr("class", "x axis")
 	      .attr("transform", "translate(0," + height + ")")
 	      .call(xAxis);
 
+//adding y axis
 	  svg.append("g")
 	      .attr("class", "y axis")
 	      .call(yAxis)
@@ -88,11 +90,13 @@
 	    .enter().append("g")
 	      .attr("class", "age");
 
+//adding line
 	  age.append("path")
 	      .attr("class", "line")
 	      .attr("d", function(d) { return line(d.values); })
 	      .style("stroke", function(d) { return color(d.name); });
 
+//adding dot points and tooltip
 		age.selectAll(".age")
     .data(function (d) { return d.values; })
 		.enter().append("circle")
@@ -100,7 +104,9 @@
 	    .attr("r", 5)
 	    .attr("cx", function(d) { return x(d.year); })
 	    .attr("cy", function(d) { return y(d.percentage); })
-			.style("fill", function(d) { return color(d.name); })
+			.style("stroke", "#50514F")
+			.style("fill-opacity", "0")
+			.style("stroke-width", "2px")
 			.on("mouseover", function(d) {
 	        tool.transition()
 	            .duration(200)
@@ -118,7 +124,8 @@
 	  age.append("text")
 	      .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
 	      .attr("transform", function(d) { return "translate(" + x(d.value.year) + "," + y(d.value.percentage) + ")"; })
-	      .attr("x", 3)
+	      .attr("x", 10)
 	      .attr("dy", ".35em")
-	      .text(function(d) { return d.name; });
+	      .text(function(d) { return d.name; })
+				.style("color", function(d) { return color(d.name); });
 	});
