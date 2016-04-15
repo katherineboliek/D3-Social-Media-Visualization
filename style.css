@@ -1,12 +1,12 @@
 body {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 14px;
   color: #50514F;
   background-color: #EFEEDC;
 }
 
-p {
+p, a {
   font-size: 17px;
   color: #50514F;
 }
@@ -21,7 +21,7 @@ p {
 }
 
 .content {
-  margin: 10px 60px 10px 60px;
+  margin: 10px 100px 10px 100px;
 }
 
 .container {

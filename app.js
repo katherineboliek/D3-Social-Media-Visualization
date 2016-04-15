@@ -83,7 +83,7 @@
 	      .attr("y", 6)
 	      .attr("dy", ".71em")
 	      .style("text-anchor", "end")
-	      .text("Percent of users");
+	      .text("Percent on social media");
 
 	  var age = svg.selectAll(".age")
 	      .data(ages)
